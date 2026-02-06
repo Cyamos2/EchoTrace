@@ -69,7 +69,7 @@ class MemoryFragment {
     extractSensory(text) {
         const sensoryWords = {
             smell: /\b(smell|scent|aroma|fragrance|odor|stink|perfume)\b/gi,
-            sight: /\b(see|saw|看|look|bright|dark|color|red|blue|green|yellow|light|shadow)\b/gi,
+            sight: /\b(see|saw|look|bright|dark|color|red|blue|green|yellow|light|shadow)\b/gi,
             sound: /\b(hear|heard|sound|noise|loud|quiet|music|voice|whisper|shout)\b/gi,
             touch: /\b(feel|felt|touch|cold|hot|warm|cool|soft|hard|rough|smooth|texture)\b/gi,
             taste: /\b(taste|flavor|sweet|sour|bitter|salty|delicious)\b/gi
@@ -299,7 +299,7 @@ class EchoTrace {
             /(morning|afternoon|evening|night)/i.test(t)
         );
         
-        if (allTimes.length > 1 && new Set(allTimes).size > 2) {
+        if (allTimes.length > 1 && new Set(allTimes).size > 1) {
             contradictions.push(`Multiple times of day mentioned across fragments`);
         }
 
