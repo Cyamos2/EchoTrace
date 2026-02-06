@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoTrace - Memory Reconstruction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 EchoTrace</h1>
+            <p class="subtitle">Reconstruct Your Memories</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <h2>Add Memory Fragment</h2>
+                <form id="fragment-form">
+                    <textarea 
+                        id="fragment-input" 
+                        placeholder="Describe a memory fragment... (e.g., 'I remember the smell of coffee on a cold morning in December')&#10;&#10;Include details like:&#10;• Time clues (dates, seasons, times of day)&#10;• Locations (places, streets, buildings)&#10;• Sensory details (smells, sounds, textures, colors)&#10;• People or emotions involved"
+                        rows="4"
+                        required
+                    ></textarea>
+                    <button type="submit" class="btn-primary">Add Fragment</button>
+                </form>
+                
+                <!-- Smart Prompts -->
+                <div id="smart-prompts" class="smart-prompts" style="display: none;">
+                    <h3>💡 Consider These Questions:</h3>
+                    <ul id="prompts-list"></ul>
+                </div>
+            </section>
+
+            <!-- Timeline Section -->
+            <section class="timeline-section">
+                <h2>Memory Timeline</h2>
+                <div id="timeline-container" class="timeline-container">
+                    <div class="empty-state">
+                        <p>No memory fragments yet. Start by adding your first fragment above.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Memory Map Section -->
+            <section class="memory-map-section">
+                <h2>Memory Map Analysis</h2>
+                <div id="analysis-container" class="analysis-container">
+                    <div class="analysis-card">
+                        <h3>📅 Temporal Clues</h3>
+                        <div id="temporal-clues" class="clue-list">
+                            <p class="empty-text">No time-related information yet</p>
+                        </div>
+                    </div>
+                    <div class="analysis-card">
+                        <h3>📍 Locations</h3>
+                        <div id="location-clues" class="clue-list">
+                            <p class="empty-text">No locations identified yet</p>
+                        </div>
+                    </div>
+                    <div class="analysis-card">
+                        <h3>👃 Sensory Details</h3>
+                        <div id="sensory-clues" class="clue-list">
+                            <p class="empty-text">No sensory details yet</p>
+                        </div>
+                    </div>
+                    <div class="analysis-card warning">
+                        <h3>⚠️ Contradictions</h3>
+                        <div id="contradictions" class="clue-list">
+                            <p class="empty-text">No contradictions detected</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
