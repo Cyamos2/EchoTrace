@@ -1,3 +1,47 @@
+// Dream Meanings Dictionary
+const DREAM_MEANINGS = {
+    teeth: {
+        symbol: '🦷 Teeth',
+        meanings: ['Anxiety or stress', 'Loss of control', 'Transition or change', 'Power and confidence']
+    },
+    falling: {
+        symbol: '📉 Falling',
+        meanings: ['Fear of losing control', 'Anxiety in life', 'Letting go of something', 'Need for grounding']
+    },
+    flying: {
+        symbol: '🛸 Flying',
+        meanings: ['Freedom and liberation', 'Ambition and success', 'Escape from reality', 'Spiritual growth']
+    },
+    water: {
+        symbol: '💧 Water',
+        meanings: ['Emotions and feelings', 'Purification and cleansing', 'Life changes', 'The unconscious mind']
+    },
+    chase: {
+        symbol: '🏃 Being Chased',
+        meanings: ['Avoidance of a problem', 'Fear or anxiety', 'Running from responsibility', 'Need for action']
+    },
+    death: {
+        symbol: '💀 Death',
+        meanings: ['Transformation and rebirth', 'End of a chapter', 'Fear of the unknown', 'New beginnings']
+    },
+    house: {
+        symbol: '🏠 House',
+        meanings: ['Your mind or psyche', 'Different life aspects', 'Safety and shelter', 'Personal growth']
+    },
+    animal: {
+        symbol: '🦁 Animals',
+        meanings: ['Instincts and wild nature', 'Specific animal traits', 'Personal qualities', 'Unconscious desires']
+    },
+    lost: {
+        symbol: '🗺️ Being Lost',
+        meanings: ['Confusion in life', 'Lack of direction', 'Transition period', 'Need for guidance']
+    },
+    monster: {
+        symbol: '👹 Monsters',
+        meanings: ['Facing fears', 'Shadow self', 'Repressed emotions', 'Internal conflicts']
+    }
+};
+
 // Memory Fragment Data Model
 class MemoryFragment {
     constructor(text, id = null) {
@@ -5,6 +49,8 @@ class MemoryFragment {
         this.text = text;
         this.timestamp = new Date();
         this.analysis = this.analyze(text);
+        this.isDream = this.detectDream(text);
+        this.dreamElements = this.isDream ? this.extractDreamElements(text) : [];
     }
 
     analyze(text) {
@@ -14,6 +60,41 @@ class MemoryFragment {
             sensory: this.extractSensory(text),
             emotions: this.extractEmotions(text)
         };
+    }
+
+    detectDream(text) {
+        const dreamKeywords = /\b(dream|dreamed|dreaming|nightmare|dreamt|in my dream)\b/gi;
+        return dreamKeywords.test(text);
+    }
+
+    extractDreamElements(text) {
+        const elements = [];
+        const lowerText = text.toLowerCase();
+
+        Object.entries(DREAM_MEANINGS).forEach(([key, data]) => {
+            const patterns = {
+                teeth: /\b(teeth|tooth|dental|bite)\b/gi,
+                falling: /\b(fall|falling|fell|drop|plummet)\b/gi,
+                flying: /\b(fly|flying|flew|airborne|soar)\b/gi,
+                water: /\b(water|ocean|sea|river|lake|swim|drowning|flood)\b/gi,
+                chase: /\b(chase|chasing|chased|run|running|fleeing|escape)\b/gi,
+                death: /\b(death|die|dying|died|dead)\b/gi,
+                house: /\b(house|home|building|room|door|window|floor)\b/gi,
+                animal: /\b(dog|cat|snake|bird|bear|wolf|lion|creature|beast)\b/gi,
+                lost: /\b(lost|missing|can't find|where|location)\b/gi,
+                monster: /\b(monster|demon|creature|beast|evil|scary|frightening)\b/gi
+            };
+
+            if (patterns[key] && patterns[key].test(lowerText)) {
+                elements.push({
+                    type: key,
+                    symbol: data.symbol,
+                    meanings: data.meanings
+                });
+            }
+        });
+
+        return elements;
     }
 
     extractTemporal(text) {
@@ -174,12 +255,15 @@ class EchoTrace {
                 ? fragment.analysis.temporal[0] 
                 : 'Undated';
             
+            const dreamBadge = fragment.isDream ? '<span class="tag dream">💭 Dream</span>' : '';
+            
             return `
-                <div class="timeline-item">
+                <div class="timeline-item ${fragment.isDream ? 'dream-fragment' : ''}">
                     <div class="timestamp">${fragment.timestamp.toLocaleString()}</div>
                     <div class="temporal-indicator">${temporalInfo}</div>
                     <div class="fragment-text">${this.escapeHtml(fragment.text)}</div>
                     <div class="tags">
+                        ${dreamBadge}
                         ${fragment.analysis.temporal.slice(1).map(t => 
                             `<span class="tag time">⏰ ${t}</span>`
                         ).join('')}
@@ -216,6 +300,7 @@ class EchoTrace {
         const allTemporal = new Set();
         const allLocations = new Set();
         const allSensory = [];
+        const allDreamElements = {};
         
         this.fragments.forEach(fragment => {
             fragment.analysis.temporal.forEach(t => allTemporal.add(t));
@@ -230,6 +315,13 @@ class EchoTrace {
                     });
                 } else {
                     allSensory.push({ sense: s.sense, words: [...s.words] });
+                }
+            });
+
+            // Aggregate dream elements
+            fragment.dreamElements.forEach(element => {
+                if (!allDreamElements[element.type]) {
+                    allDreamElements[element.type] = element;
                 }
             });
         });
@@ -264,8 +356,35 @@ class EchoTrace {
             sensoryContainer.innerHTML = '<p class="empty-text">No sensory details yet</p>';
         }
 
+        // Render dream analysis if there are dreams
+        this.renderDreamAnalysis(allDreamElements);
+
         // Detect contradictions
         this.renderContradictions();
+    }
+
+    renderDreamAnalysis(dreamElements) {
+        const dreamContainer = document.getElementById('dream-analysis');
+        if (!dreamContainer) return;
+
+        if (Object.keys(dreamElements).length === 0) {
+            dreamContainer.innerHTML = '<p class="empty-text">No dream symbols detected yet</p>';
+            return;
+        }
+
+        const dreamHtml = Object.values(dreamElements)
+            .map(element => `
+                <div class="dream-element">
+                    <div class="dream-symbol">${element.symbol}</div>
+                    <div class="dream-meanings">
+                        <ul>
+                            ${element.meanings.map(meaning => `<li>${meaning}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `).join('');
+
+        dreamContainer.innerHTML = dreamHtml;
     }
 
     renderContradictions() {

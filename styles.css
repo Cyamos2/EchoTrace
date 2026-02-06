@@ -212,6 +212,57 @@ h3 {
     color: #7b1fa2;
 }
 
+.tag.dream {
+    background: #e8d5f2;
+    color: #6a1b9a;
+    font-weight: bold;
+}
+
+.timeline-item.dream-fragment {
+    border-left-color: #6a1b9a;
+    background: #f7eef7;
+}
+
+/* Dream Analysis */
+.dream-element {
+    padding: 12px;
+    margin-bottom: 12px;
+    background: white;
+    border-radius: 6px;
+    border-left: 3px solid #9c27b0;
+}
+
+.dream-symbol {
+    font-weight: bold;
+    color: #6a1b9a;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.dream-meanings {
+    margin-left: 0;
+}
+
+.dream-meanings ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dream-meanings li {
+    padding: 4px 0;
+    font-size: 0.9rem;
+    color: #555;
+    position: relative;
+    padding-left: 20px;
+}
+
+.dream-meanings li:before {
+    content: "✨";
+    position: absolute;
+    left: 0;
+}
+
 /* Memory Map Analysis */
 .analysis-container {
     display: grid;
