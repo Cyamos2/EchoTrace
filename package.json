@@ -1,0 +1,16 @@
+{
+  "name": "echotrace",
+  "version": "1.0.0",
+  "description": "Reconstruct Your Memories - A memory fragment reconstruction and dream analysis tool",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["memory", "dreams", "analysis"],
+  "author": "Christopher Amos",
+  "license": "MIT",
+  "engines": {
+    "node": "18"
+  }
+}

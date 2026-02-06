@@ -1,83 +1,94 @@
-# EchoTrace
-A Memory‑Reconstruction Web App
+# EchoTrace - Memory Reconstruction & Dream Analysis
 
-## Overview
-
-EchoTrace is a web application that helps users reconstruct incomplete memories by organizing fragmented details into a clear, interactive timeline. Users enter short memory fragments, and the system analyzes clues like time, location, sensory details, and contradictions to build a structured "memory map."
+**EchoTrace** is an innovative web application that helps you reconstruct and understand your memories through intelligent analysis and dream interpretation.
 
 ## Features
 
-- **Memory Fragment Input**: Add detailed descriptions of memory fragments
-- **Intelligent Analysis**: Automatically extracts:
-  - Temporal clues (dates, seasons, times of day)
-  - Location information (places, landmarks)
-  - Sensory details (smells, sounds, textures, colors)
-  - Emotional context
-- **Interactive Timeline**: Displays memory fragments organized by temporal clues
-- **Memory Map**: Visual analysis showing all extracted clues organized by category
-- **Smart Prompts**: Context-aware questions to help unlock more details
-- **Contradiction Detection**: Identifies conflicting information across fragments
-- **Dynamic Updates**: Real-time timeline refresh as new fragments are added
-- **Local Storage**: Memories are saved in your browser
+### 🧠 Memory Fragments
+- Add detailed memory fragments with sensory details, locations, and temporal clues
+- Automatically extract and categorize memory information
+- Build a timeline of your memories
+
+### 💭 Dream Interpretation
+- Automatic dream detection from memory fragments
+- 10+ common dream symbols with psychological meanings:
+  - 🦷 Teeth - Anxiety, transitions, power
+  - 📉 Falling - Fear, loss of control
+  - 🛸 Flying - Freedom, ambition, escape
+  - 💧 Water - Emotions, purification, life changes
+  - 🏃 Being Chased - Avoidance, fear
+  - 💀 Death - Transformation, rebirth
+  - 🏠 House - Your psyche, safety
+  - 🦁 Animals - Instincts, personal qualities
+  - 🗺️ Being Lost - Confusion, direction
+  - 👹 Monsters - Facing fears, shadow self
+
+### 🗺️ Memory Map Analysis
+- **Temporal Clues**: Extract dates, seasons, times of day
+- **Locations**: Identify geographic references
+- **Sensory Details**: Track smells, sounds, textures, colors
+- **Dream Analysis**: Interpret dream symbols
+- **Contradiction Detection**: Find conflicting information in memories
+
+### 💡 Smart Prompts
+- Intelligent suggestions based on missing information
+- Contextual questions to unlock deeper memories
+- Adaptive prompts that evolve as you add more fragments
+
+### 🗑️ Memory Management
+- Delete memory fragments if needed
+- All data is stored locally in your browser (localStorage)
+- Privacy-first design - no data sent to external servers
 
 ## How to Use
 
-### Quick Start
+1. **Add a Memory Fragment**: Describe a memory in the textarea, including as many details as possible
+2. **View Your Timeline**: See all memories organized and ranked by temporal specificity
+3. **Explore Dream Meanings**: If you describe a dream, automatic symbol detection provides interpretations
+4. **Review Analysis**: Check the Memory Map Analysis section for extracted details
+5. **Ask Questions**: Follow the smart prompts to expand and clarify your memories
 
-1. Open `index.html` in a web browser
-2. Enter a memory fragment in the text area
-3. Click "Add Fragment"
-4. Watch as the timeline and memory map update automatically
+## Quick Start
 
-### Running with a Local Server
+### Online (Hosted on Render)
+Visit the deployed application at: https://echotrace.onrender.com
 
-For the best experience, serve the application using a local web server:
+### Local Development
 
 ```bash
-# Using Python 3
+# Install dependencies
+npm install
+
+# Start the server
+npm start
+```
+
+Visit `http://localhost:3000` in your browser.
+
+### Using Python
+```bash
 python -m http.server 8000
-
-# Using Node.js (http-server)
-npx http-server
-
-# Using PHP
-php -S localhost:8000
 ```
 
-Then open `http://localhost:8000` in your browser.
+Then open `http://localhost:8000`
 
-### Tips for Better Memory Reconstruction
-
-1. **Include Temporal Clues**: Mention dates, seasons, times of day, or years
-2. **Describe Locations**: Include places, buildings, or landmarks
-3. **Add Sensory Details**: What did you see, hear, smell, taste, or touch?
-4. **Note Emotions**: How did you feel during this memory?
-5. **Be Specific**: More details lead to better analysis
-6. **Follow Smart Prompts**: Use the suggested questions to unlock more details
-
-### Example Memory Fragments
+## Example Memory Format
 
 ```
-I remember the smell of coffee on a cold December morning in 2019. 
-The cafe was on Main Street, and snow was falling outside.
+I remember a dream where my teeth were falling out at random. Every time I bit into something, another tooth would drop. I felt anxious and kept trying to hold them in place.
 ```
 
-```
-Summer evening, around 2015. I was at the beach with friends. 
-The sound of waves and laughter. Felt peaceful and happy.
-```
-
-```
-Cold night in winter. Walking downtown. Street lights reflected 
-off wet pavement. I was nervous about something.
-```
+When you add this, EchoTrace will:
+- Detect it as a dream (💭 Dream tag)
+- Extract the "teeth" symbol
+- Provide interpretations like: "Anxiety or stress", "Loss of control", "Transition or change"
 
 ## Technology
 
-- Pure HTML, CSS, and JavaScript (no build tools required)
-- Local storage for data persistence
-- Responsive design for mobile and desktop
-- No external dependencies
+- **Frontend**: Vanilla JavaScript, HTML5, CSS3
+- **Storage**: Browser localStorage for local persistence
+- **Analysis**: Pattern matching and natural language analysis
+- **Deployment**: Node.js on Render
 
 ## Browser Compatibility
 
@@ -88,7 +99,7 @@ Works in all modern browsers:
 
 ## Privacy
 
-All data is stored locally in your browser. No information is sent to any server. Your memories remain completely private.
+All your memories and dreams are stored locally in your browser. No data is sent to any external servers or databases. You have complete control over your personal information.
 
 ## License
 

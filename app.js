@@ -192,7 +192,26 @@ class EchoTrace {
                 return fragment;
             });
         }
-        return [];
+        
+        // Load example fragments for testing
+        return this.getExampleFragments();
+    }
+
+    getExampleFragments() {
+        const examples = [
+            "I remember a dream where my teeth were falling out at random. Every time I bit into something, another tooth would drop. I felt anxious and kept trying to hold them in place with my tongue.",
+            "Last summer, I was walking through the coffee shop downtown on a warm afternoon. The smell of freshly brewed espresso mixed with something sweet. I could hear soft jazz playing.",
+            "I had a dream about flying over my childhood home. I could see the old oak tree in the backyard and the red roof clearly. The feeling was peaceful and free.",
+            "In December, I remember the cold morning when the first snow fell. The city was quiet and everything looked frozen and crystalline.",
+            "I dreamed I was lost in a massive library where the shelves kept shifting. I couldn't find the exit no matter which way I turned. It was both fascinating and unsettling."
+        ];
+
+        return examples.map((text, index) => {
+            const fragment = new MemoryFragment(text);
+            fragment.id = 1000 + index;
+            fragment.timestamp = new Date(Date.now() - (examples.length - index) * 3600000);
+            return fragment;
+        });
     }
 
     saveFragments() {
@@ -210,6 +229,14 @@ class EchoTrace {
             e.preventDefault();
             this.addFragment();
         });
+
+        // Event delegation for delete buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn-delete')) {
+                const fragmentId = parseInt(e.target.dataset.id);
+                this.deleteFragment(fragmentId);
+            }
+        });
     }
 
     addFragment() {
@@ -221,6 +248,15 @@ class EchoTrace {
             this.fragments.push(fragment);
             this.saveFragments();
             input.value = '';
+            this.render();
+        }
+    }
+
+    deleteFragment(fragmentId) {
+        const index = this.fragments.findIndex(f => f.id === fragmentId);
+        if (index > -1) {
+            this.fragments.splice(index, 1);
+            this.saveFragments();
             this.render();
         }
     }
@@ -260,6 +296,7 @@ class EchoTrace {
             return `
                 <div class="timeline-item ${fragment.isDream ? 'dream-fragment' : ''}">
                     <div class="timestamp">${fragment.timestamp.toLocaleString()}</div>
+                    <button class="btn-delete" data-id="${fragment.id}" title="Delete this memory fragment">✕</button>
                     <div class="temporal-indicator">${temporalInfo}</div>
                     <div class="fragment-text">${this.escapeHtml(fragment.text)}</div>
                     <div class="tags">
